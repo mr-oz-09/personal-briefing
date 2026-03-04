@@ -32,13 +32,19 @@ class TestArticleCollector:
                 {
                     "title": "AI Breakthrough from GitHub Engineering",
                     "url": "https://github.blog/ai-article",
-                    "content": "Major advancement in AI technology with code examples and implementation details for production systems.",
+                    "content": (
+                        "Major advancement in AI technology with code examples "
+                        "and implementation details for production systems."
+                    ),
                     "score": 0.9,
                 },
                 {
                     "title": "LLM Update from AWS Blog",
                     "url": "https://aws.amazon.com/llm-update",
-                    "content": "New language model released with detailed architecture breakdown and API documentation for developers.",
+                    "content": (
+                        "New language model released with detailed architecture "
+                        "breakdown and API documentation for developers."
+                    ),
                     "score": 0.85,
                 },
             ]
@@ -109,7 +115,11 @@ class TestArticleCollector:
                 {
                     "title": f"Technical Article {i} from GitHub Engineering Blog",
                     "url": f"https://github.blog/article-{i}",
-                    "content": f"Detailed technical content {i} with code examples, architecture patterns, implementation details, and API documentation for developers.",
+                    "content": (
+                        f"Detailed technical content {i} with code examples, "
+                        f"architecture patterns, implementation details, and "
+                        f"API documentation for developers."
+                    ),
                     "score": 0.9,
                 }
                 for i in range(20)
