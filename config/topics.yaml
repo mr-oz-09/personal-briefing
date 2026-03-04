@@ -1,0 +1,40 @@
+briefing:
+  # Schedule in UTC (6 AM EST = 11:00 UTC, 6 AM EDT = 10:00 UTC)
+  schedule: "cron(0 11 * * ? *)"
+
+  # Email configuration - stored in AWS Systems Manager Parameter Store
+  # Set these via: aws ssm put-parameter --name "/personal-briefing/recipient-email" --value "your@email.com" --type "String"
+  recipient_email: "your-email@example.com" # Will be overridden by Parameter Store
+  sender_email: "briefing@example.com" # Will be overridden by Parameter Store (must be verified in SES)
+  sender_name: "Morning Briefing"
+
+  max_articles_per_topic: 8
+  region: "us-east-2"
+
+  # Bedrock inference profile for summarization (Claude 3.5 Sonnet v2)
+  # Use inference profile instead of direct model ID for on-demand throughput
+  bedrock_model_id: "us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+
+  # Tavily API for web search (free tier: 1,000 searches/month)
+  # API key stored in Parameter Store: /personal-briefing/tavily-api-key
+  search_provider: "tavily"
+  search_results_per_topic: 15
+
+topics:
+  - name: "AI & Machine Learning"
+    description: "Latest developments in artificial intelligence, machine learning, large language models, and generative AI from the past 24-48 hours"
+
+  - name: "API Design"
+    description: "Recent best practices, patterns, and innovations in API design including REST, GraphQL, and modern API architectures"
+
+  - name: "Infrastructure Architecture"
+    description: "New cloud architecture patterns, distributed systems design, microservices, and scalability strategies"
+
+  - name: "Kubernetes"
+    description: "Latest Kubernetes ecosystem updates, container orchestration best practices, Helm, service mesh, and cloud-native technologies"
+
+  - name: "SDLC"
+    description: "Recent software development lifecycle improvements, CI/CD pipelines, DevOps practices, testing strategies, and development workflows"
+
+  - name: "Infrastructure as Code"
+    description: "Latest IaC tools and practices including Terraform, AWS CDK, CloudFormation, Pulumi, and infrastructure automation"

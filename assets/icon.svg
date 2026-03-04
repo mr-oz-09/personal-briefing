@@ -1,0 +1,62 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a365d"/>
+      <stop offset="100%" style="stop-color:#2b6cb0"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#f7fafc"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" rx="40" fill="url(#bg)"/>
+
+  <!-- Paper/Document -->
+  <rect x="90" y="70" width="220" height="270" rx="8" fill="url(#paper)" opacity="0.95"/>
+  <rect x="90" y="70" width="220" height="270" rx="8" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Header bar -->
+  <rect x="90" y="70" width="220" height="50" rx="8" fill="#1a365d"/>
+  <rect x="90" y="95" width="220" height="25" fill="#1a365d"/>
+
+  <!-- Header text lines -->
+  <rect x="110" y="82" width="100" height="6" rx="3" fill="#ffffff" opacity="0.9"/>
+  <rect x="110" y="96" width="70" height="4" rx="2" fill="#ffffff" opacity="0.5"/>
+
+  <!-- Content lines - Topic 1 -->
+  <rect x="110" y="140" width="60" height="5" rx="2" fill="#2b6cb0"/>
+  <rect x="110" y="152" width="180" height="3" rx="1.5" fill="#a0aec0"/>
+  <rect x="110" y="160" width="160" height="3" rx="1.5" fill="#a0aec0"/>
+
+  <!-- Content lines - Topic 2 -->
+  <rect x="110" y="180" width="70" height="5" rx="2" fill="#2b6cb0"/>
+  <rect x="110" y="192" width="180" height="3" rx="1.5" fill="#a0aec0"/>
+  <rect x="110" y="200" width="150" height="3" rx="1.5" fill="#a0aec0"/>
+
+  <!-- Content lines - Topic 3 -->
+  <rect x="110" y="220" width="55" height="5" rx="2" fill="#2b6cb0"/>
+  <rect x="110" y="232" width="180" height="3" rx="1.5" fill="#a0aec0"/>
+  <rect x="110" y="240" width="170" height="3" rx="1.5" fill="#a0aec0"/>
+
+  <!-- Content lines - Topic 4 -->
+  <rect x="110" y="260" width="65" height="5" rx="2" fill="#2b6cb0"/>
+  <rect x="110" y="272" width="180" height="3" rx="1.5" fill="#a0aec0"/>
+  <rect x="110" y="280" width="140" height="3" rx="1.5" fill="#a0aec0"/>
+
+  <!-- AI Sparkle badge -->
+  <circle cx="290" cy="90" r="28" fill="#ed8936"/>
+  <circle cx="290" cy="90" r="24" fill="#dd6b20"/>
+
+  <!-- Sparkle star -->
+  <path d="M290 70 L293 82 L305 85 L293 88 L290 100 L287 88 L275 85 L287 82 Z"
+        fill="#ffffff" opacity="0.95"/>
+  <path d="M278 75 L280 80 L285 82 L280 84 L278 89 L276 84 L271 82 L276 80 Z"
+        fill="#ffffff" opacity="0.6" transform="scale(0.6) translate(175, 50)"/>
+
+  <!-- Bottom label -->
+  <text x="200" y="375" font-family="'Helvetica Neue', Arial, sans-serif"
+        font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle"
+        letter-spacing="3">BRIEFING</text>
+</svg>
