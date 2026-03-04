@@ -54,7 +54,7 @@ class TestEmailSender:
 
         call_kwargs = mock_ses.send_email.call_args
         assert call_kwargs.kwargs["Destination"]["ToAddresses"] == ["recipient@test.com"]
-        assert "Test <sender@test.com>" in call_kwargs.kwargs["Source"]
+        assert call_kwargs.kwargs["Source"] == "sender@test.com"
 
     @patch("boto3.client")
     def test_send_briefing_end_to_end(

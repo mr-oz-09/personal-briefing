@@ -30,14 +30,16 @@ class TestArticleCollector:
         mock_response.json.return_value = {
             "results": [
                 {
-                    "title": "AI Breakthrough",
-                    "url": "https://example.com/ai-article",
-                    "content": "Major advancement in AI technology.",
+                    "title": "AI Breakthrough from GitHub Engineering",
+                    "url": "https://github.blog/ai-article",
+                    "content": "Major advancement in AI technology with code examples and implementation details for production systems.",
+                    "score": 0.9,
                 },
                 {
-                    "title": "LLM Update",
-                    "url": "https://example.com/llm-update",
-                    "content": "New language model released.",
+                    "title": "LLM Update from AWS Blog",
+                    "url": "https://aws.amazon.com/llm-update",
+                    "content": "New language model released with detailed architecture breakdown and API documentation for developers.",
+                    "score": 0.85,
                 },
             ]
         }
@@ -52,9 +54,9 @@ class TestArticleCollector:
         articles = collector.collect_for_topic(topic)
 
         assert len(articles) == 2
-        assert articles[0].title == "AI Breakthrough"
+        assert "AI Breakthrough" in articles[0].title
         assert articles[0].topic == "AI & ML"
-        assert "example.com" in articles[0].link
+        assert "github.blog" in articles[0].link or "aws.amazon.com" in articles[0].link
 
     @patch("personal_briefing.collector.requests.post")
     @patch.dict("os.environ", {"TAVILY_API_KEY": "test-key"})
@@ -100,14 +102,15 @@ class TestArticleCollector:
     @patch("personal_briefing.collector.requests.post")
     @patch.dict("os.environ", {"TAVILY_API_KEY": "test-key"})
     def test_limits_results(self, mock_post: MagicMock) -> None:
-        # Return more results than max_articles
+        # Return more results than max_articles - use high-quality sources
         mock_response = MagicMock()
         mock_response.json.return_value = {
             "results": [
                 {
-                    "title": f"Article {i}",
-                    "url": f"https://example.com/{i}",
-                    "content": f"Content {i}",
+                    "title": f"Technical Article {i} from GitHub Engineering Blog",
+                    "url": f"https://github.blog/article-{i}",
+                    "content": f"Detailed technical content {i} with code examples, architecture patterns, implementation details, and API documentation for developers.",
+                    "score": 0.9,
                 }
                 for i in range(20)
             ]

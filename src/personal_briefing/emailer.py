@@ -167,7 +167,11 @@ class EmailSender:
         # Format executive summary
         summary_html = ""
         if briefing.executive_summary:
-            summary_html = f'<div class="exec-summary"><strong>📋 Executive Summary:</strong> {briefing.executive_summary}</div>'
+            summary_html = (
+                f'<div class="exec-summary">'
+                f"<strong>📋 Executive Summary:</strong> {briefing.executive_summary}"
+                f"</div>"
+            )
 
         topics_html_parts: list[str] = []
 

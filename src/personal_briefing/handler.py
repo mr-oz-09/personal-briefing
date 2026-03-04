@@ -28,7 +28,8 @@ def get_parameter(name: str, region: str = "us-east-2") -> str:
     try:
         ssm = boto3.client("ssm", region_name=region)
         response = ssm.get_parameter(Name=name, WithDecryption=True)
-        return response["Parameter"]["Value"]
+        value: str = response["Parameter"]["Value"]
+        return value
     except Exception:
         logger.warning("Failed to get parameter %s", name, exc_info=True)
         return ""

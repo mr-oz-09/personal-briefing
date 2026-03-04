@@ -166,7 +166,11 @@ interesting trends/stories across all topics. Punchy and insightful.
 Topics: {", ".join(topics)}
 
 Example:
-{{"intro": "☕️ Good morning! Pour yourself coffee, we've got spicy tech takes. From AI chaos to infrastructure drama, here's what's worth knowing.", "summary": "The big story? AI is everywhere and everyone has opinions. Kubernetes continues its world tour, someone made API docs readable, and there's IaC drama that'll make you grateful you're not on-call."}}
+{{"intro": "☕️ Good morning! Pour yourself coffee, we've got spicy tech takes. \
+From AI chaos to infrastructure drama, here's what's worth knowing.", \
+"summary": "The big story? AI is everywhere and everyone has opinions. \
+Kubernetes continues its world tour, someone made API docs readable, \
+and there's IaC drama that'll make you grateful you're not on-call."}}
 
 Write similar for today. Be witty but informative.
 
@@ -201,7 +205,10 @@ JSON only:
             return parsed.get("intro", ""), parsed.get("summary", "")
         except Exception:
             logger.warning("Failed to generate intro/summary", exc_info=True)
-            intro = f"☕️ Good morning! Here's your tech briefing - {len(topics)} areas, {total_articles} articles."
+            intro = (
+                f"☕️ Good morning! Here's your tech briefing - "
+                f"{len(topics)} areas, {total_articles} articles."
+            )
             summary = f"Today: {', '.join(topics[:3])} and more. Grab your coffee and dive in."
             return intro, summary
 

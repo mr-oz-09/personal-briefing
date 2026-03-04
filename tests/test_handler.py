@@ -16,6 +16,7 @@ EVENTBRIDGE_EVENT = {
 
 
 class TestLambdaHandler:
+    @patch("personal_briefing.handler.get_parameter")
     @patch("personal_briefing.handler.EmailSender")
     @patch("personal_briefing.handler.BedrockSummarizer")
     @patch("personal_briefing.handler.ArticleCollector")
@@ -26,9 +27,11 @@ class TestLambdaHandler:
         mock_collector_cls: MagicMock,
         mock_summarizer_cls: MagicMock,
         mock_emailer_cls: MagicMock,
+        mock_get_param: MagicMock,
         sample_config: Config,
     ) -> None:
         mock_config.return_value = sample_config
+        mock_get_param.return_value = "test-value"
 
         mock_collector = MagicMock()
         mock_collector.collect_all.return_value = {"AI": [], "K8s": []}
@@ -36,6 +39,7 @@ class TestLambdaHandler:
 
         mock_summarizer = MagicMock()
         mock_summarizer.summarize_all.return_value = []
+        mock_summarizer.generate_intro_and_summary.return_value = ("intro", "summary")
         mock_summarizer_cls.return_value = mock_summarizer
 
         mock_emailer = MagicMock()
