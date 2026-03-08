@@ -1,0 +1,69 @@
+name: Destroy Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type "destroy" to confirm infrastructure deletion'
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirmation == 'destroy'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install CDK dependencies
+        run: |
+          poetry install --with cdk
+          npm install -g aws-cdk
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-2
+
+      - name: CDK Destroy
+        run: |
+          cd cdk
+          poetry run cdk destroy --force
+
+      - name: Summary
+        run: |
+          echo "## 🗑️ Infrastructure Destroyed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The following resources have been deleted:" >> $GITHUB_STEP_SUMMARY
+          echo "- Lambda function: personal-briefing" >> $GITHUB_STEP_SUMMARY
+          echo "- EventBridge rule (daily schedule)" >> $GITHUB_STEP_SUMMARY
+          echo "- CloudWatch log groups" >> $GITHUB_STEP_SUMMARY
+          echo "- IAM roles and policies" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "⚠️ **Note:** Parameter Store values are NOT deleted." >> $GITHUB_STEP_SUMMARY
+          echo "To delete them manually:" >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo "aws ssm delete-parameter --name /personal-briefing/tavily-api-key --region us-east-2" >> $GITHUB_STEP_SUMMARY
+          echo "aws ssm delete-parameter --name /personal-briefing/recipient-email --region us-east-2" >> $GITHUB_STEP_SUMMARY
+          echo "aws ssm delete-parameter --name /personal-briefing/sender-email --region us-east-2" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY

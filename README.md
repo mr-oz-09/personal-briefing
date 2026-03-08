@@ -346,6 +346,42 @@ MIT License - see [LICENSE](LICENSE) file
 - **Poetry** - Python dependency management
 - **Community** - Thanks to all contributors!
 
+## 🗑️ Cleanup / Destroy Infrastructure
+
+### Option 1: GitHub Actions (Recommended)
+
+1. Go to **Actions** → **Destroy Infrastructure**
+2. Click **Run workflow**
+3. Type `destroy` in the confirmation field
+4. Click **Run workflow**
+
+This will delete all AWS resources (Lambda, EventBridge, IAM roles, etc.)
+
+### Option 2: Local Script
+
+```bash
+./scripts/destroy-infrastructure.sh
+```
+
+### Option 3: Manual CDK Destroy
+
+```bash
+cd cdk
+poetry run cdk destroy
+```
+
+### Cleanup Parameter Store (Optional)
+
+The destroy workflows **do NOT** delete Parameter Store values. To remove them:
+
+```bash
+aws ssm delete-parameter --name /personal-briefing/tavily-api-key --region us-east-2
+aws ssm delete-parameter --name /personal-briefing/recipient-email --region us-east-2
+aws ssm delete-parameter --name /personal-briefing/sender-email --region us-east-2
+```
+
+**Note:** This allows you to redeploy later without re-entering your secrets.
+
 ## 🐛 Troubleshooting
 
 ### Emails Going to Spam
